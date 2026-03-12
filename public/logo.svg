@@ -1,0 +1,23 @@
+<svg viewBox="0 0 800 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Eyelash / Brow Graphic -->
+  <path d="M250 250C300 180 400 180 500 230C520 240 540 250 560 250M265 240C290 200 320 180 350 170M290 225C310 190 340 175 375 175M320 215C340 185 370 180 405 185M355 210C375 185 405 185 440 195M395 215C415 195 445 200 475 215M440 225C460 210 490 215 515 235M485 240C505 230 530 235 550 250" stroke="#171717" stroke-width="4" stroke-linecap="round"/>
+  
+  <!-- "lash" Text Path Approximation with high-end serif styling -->
+  <g fill="#064e3b">
+    <!-- l -->
+    <path d="M150 290V500H210V290H150Z"/>
+    <path d="M140 290h80v15h-80zM140 485h80v15h-80z"/>
+    
+    <!-- a -->
+    <path d="M240 400c0-30 20-50 50-50s50 20 50 50v100h-60v-10h-10c-10 10-20 15-30 15-25 0-45-20-45-45z m90 0v-5c0-15-10-25-25-25s-25 10-25 25 10 25 25 25c10 0 20-5 25-15z"/>
+    
+    <!-- s -->
+    <path d="M420 375c0-20 15-30 35-30s35 10 35 30-15 30-35 30-35 15-35 35 15 35 35 35 35-15 35-35h-15c0 15-10 20-20 20s-20-5-20-20 10-20 20-20 35-15 35-35-15-35-35-35-35 15-35 35z"/>
+    
+    <!-- h -->
+    <path d="M520 290v210h60v-80c0-25 15-40 35-40s35 15 35 40v80h60v-90c0-45-25-70-65-70-20 0-35 10-45 25V290h-80z"/>
+  </g>
+  
+  <!-- "Beauty Shop" Cursive Approximation -->
+  <text x="490" y="580" text-anchor="middle" font-family="Brush Script MT, cursive, serif" font-size="90" fill="#171717">Beauty Shop</text>
+</svg>
