@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, Tag, ShoppingBag, ClipboardList, LogOut, ChevronLeft } from 'lucide-react';
+import { LayoutDashboard, Tag, ShoppingBag, ClipboardList, LogOut, ChevronLeft, Star } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export function AdminSidebar() {
@@ -12,6 +12,7 @@ export function AdminSidebar() {
     { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
     { name: 'Categorias', href: '/admin/categorias', icon: Tag },
     { name: 'Produtos', href: '/admin/produtos', icon: ShoppingBag },
+    { name: 'Destaques', href: '/admin/destaques', icon: Star },
     { name: 'Pedidos', href: '/admin/pedidos', icon: ClipboardList },
   ];
 

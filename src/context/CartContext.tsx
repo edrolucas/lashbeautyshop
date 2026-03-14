@@ -1,14 +1,18 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 
 export interface Product {
   id: string;
   name: string;
   price: number;
+  sale_price?: number | null;
   description: string;
   image_url: string;
   category_id: string;
+  badge?: 'destaque' | 'mais_vendido' | 'promocao' | null;
+  featured?: boolean;
+  stock_status?: 'in_stock' | 'low_stock' | 'out_of_stock' | null;
 }
 
 export interface CartItem extends Product {
@@ -25,6 +29,7 @@ interface CartContextType {
   totalPrice: number;
   isCartOpen: boolean;
   setIsCartOpen: (isOpen: boolean) => void;
+  cartAnimating: boolean;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -32,6 +37,7 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [cartAnimating, setCartAnimating] = useState(false);
 
   // Load cart from localStorage
   useEffect(() => {
@@ -50,6 +56,11 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem('lash-beauty-cart', JSON.stringify(cart));
   }, [cart]);
 
+  const triggerCartAnimation = useCallback(() => {
+    setCartAnimating(true);
+    setTimeout(() => setCartAnimating(false), 600);
+  }, []);
+
   const addToCart = (product: Product) => {
     setCart((prev) => {
       const existing = prev.find((item) => item.id === product.id);
@@ -60,6 +71,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       }
       return [...prev, { ...product, quantity: 1 }];
     });
+    triggerCartAnimation();
     setIsCartOpen(true);
   };
 
@@ -82,7 +94,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   };
 
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-  const totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const totalPrice = cart.reduce((sum, item) => sum + (item.sale_price || item.price) * item.quantity, 0);
 
   return (
     <CartContext.Provider
@@ -96,6 +108,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         totalPrice,
         isCartOpen,
         setIsCartOpen,
+        cartAnimating,
       }}
     >
       {children}

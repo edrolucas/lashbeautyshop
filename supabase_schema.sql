@@ -1,3 +1,7 @@
+-- ========================================
+-- SCHEMA INICIAL
+-- ========================================
+
 -- Create categories table
 CREATE TABLE IF NOT EXISTS categories (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -11,7 +15,10 @@ CREATE TABLE IF NOT EXISTS products (
   price NUMERIC NOT NULL,
   description TEXT,
   image_url TEXT,
-  category_id UUID REFERENCES categories(id) ON DELETE SET NULL
+  category_id UUID REFERENCES categories(id) ON DELETE SET NULL,
+  badge TEXT CHECK (badge IN ('destaque', 'mais_vendido', 'promocao')),
+  featured BOOLEAN DEFAULT FALSE,
+  featured_order INTEGER DEFAULT 0
 );
 
 -- Create orders table
@@ -28,6 +35,14 @@ CREATE TABLE IF NOT EXISTS orders (
 -- ALTER TABLE categories ENABLE ROW LEVEL SECURITY;
 -- ALTER TABLE products ENABLE ROW LEVEL SECURITY;
 -- ALTER TABLE orders ENABLE ROW LEVEL SECURITY;
+
+-- ========================================
+-- MIGRAÇÃO — Execute se a tabela products já existir
+-- ========================================
+-- ALTER TABLE products
+--   ADD COLUMN IF NOT EXISTS badge TEXT CHECK (badge IN ('destaque', 'mais_vendido', 'promocao')),
+--   ADD COLUMN IF NOT EXISTS featured BOOLEAN DEFAULT FALSE,
+--   ADD COLUMN IF NOT EXISTS featured_order INTEGER DEFAULT 0;
 
 -- Sample Data (Optional)
 -- INSERT INTO categories (name) VALUES ('Cílios'), ('Sobrancelhas'), ('Acessórios'), ('Tratamentos'), ('Depilação');

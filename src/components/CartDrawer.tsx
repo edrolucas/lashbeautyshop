@@ -1,6 +1,6 @@
 'use client';
 
-import { X, Minus, Plus, ShoppingBag, Send } from 'lucide-react';
+import { X, Minus, Plus, ShoppingBag, Send, Trash2 } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
@@ -57,74 +57,84 @@ export function CartDrawer() {
     <div className="fixed inset-0 z-[100] overflow-hidden">
       {/* Overlay */}
       <div 
-        className="absolute inset-0 bg-black/30 backdrop-blur-sm transition-opacity" 
+        className="absolute inset-0 bg-brand-green/20 backdrop-blur-md transition-opacity duration-700" 
         onClick={() => setIsCartOpen(false)}
       />
 
       {/* Drawer */}
       <div className="absolute inset-y-0 right-0 max-w-full flex">
         <div className="w-screen max-w-md pointer-events-auto">
-          <div className="h-full flex flex-col bg-white shadow-2xl">
+          <div className="h-full flex flex-col bg-brand-nude shadow-[0_0_100px_rgba(6,78,59,0.1)] relative">
             {/* Header */}
-            <div className="px-6 py-6 border-b border-gray-100 flex items-center justify-between">
-              <h2 className="text-xl font-serif font-bold text-emerald-900">Meu Carrinho</h2>
+            <div className="px-8 py-10 border-b border-brand-beige flex items-center justify-between">
+              <div>
+                <h2 className="text-3xl font-serif font-bold text-brand-green tracking-tighter">Meu Carrinho</h2>
+                <p className="text-[10px] text-brand-gold uppercase tracking-[0.2em] font-bold mt-1">Sua seleção premium</p>
+              </div>
               <button 
                 onClick={() => setIsCartOpen(false)}
-                className="p-2 text-gray-400 hover:text-emerald-900 transition-colors"
+                className="w-12 h-12 rounded-full border border-brand-beige flex items-center justify-center text-brand-green/40 hover:text-brand-green hover:border-brand-green transition-all duration-500"
               >
-                <X className="w-6 h-6" />
+                <X className="w-5 h-5" />
               </button>
             </div>
 
             {/* Cart Items */}
-            <div className="flex-1 overflow-y-auto px-6 py-4">
+            <div className="flex-1 overflow-y-auto px-8 py-8 no-scrollbar">
               {cart.length === 0 ? (
-                <div className="h-full flex flex-col items-center justify-center text-center opacity-60">
-                  <ShoppingBag className="w-16 h-16 mb-4 text-gray-300" />
-                  <p className="text-gray-500">Seu carrinho está vazio.</p>
+                <div className="h-full flex flex-col items-center justify-center text-center">
+                  <div className="w-20 h-20 rounded-full bg-brand-beige flex items-center justify-center mb-6">
+                    <ShoppingBag className="w-8 h-8 text-brand-gold" />
+                  </div>
+                  <h3 className="text-xl font-serif font-bold text-brand-green mb-2">Está vazio?</h3>
+                  <p className="text-brand-green/40 text-xs font-medium max-w-[180px]">Explore nossa coleção e encontre o olhar perfeito.</p>
                 </div>
               ) : (
-                <div className="space-y-6">
+                <div className="space-y-10">
                   {cart.map((item) => (
-                    <div key={item.id} className="flex gap-4">
-                      <div className="relative w-24 h-24 bg-gray-50 rounded-lg overflow-hidden flex-shrink-0">
+                    <div key={item.id} className="flex gap-6 group">
+                      <div className="relative w-24 h-24 bg-white rounded-3xl overflow-hidden shadow-sm border border-brand-beige flex-shrink-0 transition-transform duration-500 group-hover:scale-105">
                         {item.image_url ? (
                           <Image
                             src={item.image_url}
                             alt={item.name}
                             fill
-                            className="object-cover"
+                            className="object-contain p-2"
                           />
                         ) : (
-                          <div className="w-full h-full flex items-center justify-center text-[10px] text-gray-400">Sem Imagem</div>
+                          <div className="w-full h-full flex items-center justify-center text-[10px] text-brand-green/10">
+                             <ShoppingBag className="w-8 h-8" />
+                          </div>
                         )}
                       </div>
                       <div className="flex-1 flex flex-col">
-                        <div className="flex justify-between">
-                          <h3 className="text-sm font-medium text-gray-900 leading-tight">{item.name}</h3>
-                          <p className="text-sm font-bold text-emerald-900 ml-2">R$ {item.price.toFixed(2)}</p>
+                        <div className="flex justify-between items-start">
+                          <h3 className="text-sm font-serif font-bold text-brand-green leading-tight pr-4">{item.name}</h3>
+                          <p className="text-sm font-bold text-brand-green tracking-tighter">R$ {item.price.toFixed(2)}</p>
                         </div>
-                        <p className="text-xs text-gray-400 mt-1 uppercase tracking-wider">Ref: {item.id.slice(0, 8)}</p>
+                        <p className="text-[9px] text-brand-gold font-bold uppercase tracking-[0.2em] mt-2 mb-4">Ref: {item.id.slice(0, 8)}</p>
+                        
                         <div className="mt-auto flex items-center justify-between">
-                          <div className="flex items-center border border-gray-200 rounded-md">
+                          <div className="flex items-center bg-white border border-brand-beige rounded-full p-1 shadow-sm">
                             <button 
-                              className="p-1 hover:bg-gray-50 text-gray-500"
+                              className="w-7 h-7 flex items-center justify-center rounded-full hover:bg-brand-beige text-brand-green/30 hover:text-brand-green transition-all"
                               onClick={() => updateQuantity(item.id, item.quantity - 1)}
                             >
                               <Minus className="w-3 h-3" />
                             </button>
-                            <span className="w-8 text-center text-xs font-medium">{item.quantity}</span>
+                            <span className="w-8 text-center text-xs font-bold text-brand-green">{item.quantity}</span>
                             <button 
-                              className="p-1 hover:bg-gray-50 text-gray-500"
+                              className="w-7 h-7 flex items-center justify-center rounded-full hover:bg-brand-beige text-brand-green/30 hover:text-brand-green transition-all"
                               onClick={() => updateQuantity(item.id, item.quantity + 1)}
                             >
                               <Plus className="w-3 h-3" />
                             </button>
                           </div>
                           <button 
-                            className="text-xs text-red-400 hover:text-red-600 transition-colors underline underline-offset-2"
+                            className="text-[10px] text-brand-green/30 hover:text-rose-500 font-bold uppercase tracking-widest transition-colors flex items-center gap-1"
                             onClick={() => removeFromCart(item.id)}
                           >
+                            <Trash2 className="w-3 h-3" />
                             Remover
                           </button>
                         </div>
@@ -137,33 +147,34 @@ export function CartDrawer() {
 
             {/* Footer / Checkout */}
             {cart.length > 0 && (
-              <div className="px-6 py-8 border-t border-gray-100 bg-gray-50/50">
-                <div className="mb-6">
-                  <label htmlFor="customerName" className="block text-xs font-semibold text-gray-500 uppercase tracking-widest mb-2">
-                    Seu Nome *
+              <div className="px-8 py-10 border-t border-brand-beige bg-white/40 backdrop-blur-sm">
+                <div className="mb-10">
+                  <label htmlFor="customerName" className="block text-[10px] font-bold text-brand-gold uppercase tracking-[0.3em] mb-4">
+                    Seu Nome para o Pedido
                   </label>
                   <input
                     type="text"
                     id="customerName"
                     value={customerName}
                     onChange={(e) => setCustomerName(e.target.value)}
-                    placeholder="Como podemos te chamar?"
-                    className="w-full px-4 py-3 bg-white border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-900/10 focus:border-emerald-900 transition-all"
+                    placeholder="Ex: Ismênia Oliveira"
+                    className="w-full px-6 py-5 bg-white border border-brand-beige rounded-full text-xs font-bold uppercase tracking-widest text-brand-green placeholder:text-brand-green/20 focus:outline-none focus:border-brand-green transition-all shadow-sm"
                   />
                 </div>
-                <div className="flex items-center justify-between mb-8">
-                  <span className="text-sm text-gray-500">Valor Total</span>
-                  <span className="text-2xl font-serif font-bold text-emerald-900">R$ {totalPrice.toFixed(2)}</span>
+                <div className="flex items-center justify-between mb-10">
+                  <span className="text-[10px] font-bold text-brand-green/30 uppercase tracking-[0.2em]">Total do Investimento</span>
+                  <span className="text-3xl font-serif font-bold text-brand-green tracking-tighter">R$ {totalPrice.toFixed(2).replace('.', ',')}</span>
                 </div>
                 <button
                   onClick={handleCheckout}
-                  className="w-full bg-mint-400 hover:bg-mint-500 text-emerald-900 font-bold py-4 rounded-xl flex items-center justify-center gap-3 transition-all transform active:scale-95 shadow-lg shadow-mint-400/20"
+                  disabled={isSubmitting}
+                  className="w-full bg-brand-green hover:bg-brand-gold text-white font-bold py-5 rounded-full flex items-center justify-center gap-4 transition-all transform active:scale-95 shadow-2xl shadow-brand-green/20 text-xs tracking-[0.2em] uppercase"
                 >
-                  <Send className="w-5 h-5" />
-                  FINALIZAR NO WHATSAPP
+                  <Send className="w-5 h-5 stroke-[2.5]" />
+                  {isSubmitting ? 'Gerando Pedido...' : 'Finalizar no WhatsApp'}
                 </button>
-                <p className="mt-4 text-center text-[10px] text-gray-400 leading-relaxed">
-                  Ao clicar em finalizar, você será redirecionado para o WhatsApp para confirmar seu pedido.
+                <p className="mt-6 text-center text-[9px] text-brand-green/30 uppercase tracking-widest leading-relaxed font-bold">
+                  Finalize para receber o atendimento exclusivo via chat.
                 </p>
               </div>
             )}

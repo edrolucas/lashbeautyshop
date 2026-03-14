@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Minus, Plus, ShoppingBag, Check, ShieldCheck, Truck } from 'lucide-react';
+import { Minus, Plus, ShoppingBag, Check, ShieldCheck, Truck, Star } from 'lucide-react';
 import { useCart, Product } from '@/context/CartContext';
 import { cn } from '@/lib/utils';
 
@@ -24,34 +24,45 @@ export function ProductInfo({ product }: ProductInfoProps) {
 
   return (
     <div className="flex flex-col">
-      <h1 className="text-4xl lg:text-5xl font-serif font-bold text-gray-900 mb-4">{product.name}</h1>
+      <div className="flex items-center gap-2 mb-6">
+        <div className="flex">
+          {[...Array(5)].map((_, i) => (
+            <Star key={i} className="w-3 h-3 text-brand-gold fill-brand-gold" />
+          ))}
+        </div>
+        <span className="text-[10px] text-brand-green/40 uppercase font-bold tracking-[0.2em]"> (48 Avaliações)</span>
+      </div>
+
+      <h1 className="text-5xl lg:text-6xl font-serif font-bold text-brand-green mb-6 leading-[0.9] tracking-tighter">
+        {product.name}
+      </h1>
       
-      <div className="flex items-center gap-4 mb-8">
-        <span className="text-3xl font-serif font-bold text-emerald-900">
+      <div className="flex items-center gap-6 mb-10">
+        <span className="text-4xl font-serif font-bold text-brand-green tracking-tighter">
           R$ {product.price.toFixed(2).replace('.', ',')}
         </span>
-        <div className="px-3 py-1 bg-emerald-50 text-emerald-900 rounded-full text-[10px] font-bold uppercase tracking-wider">
-          Em Estoque
+        <div className="px-4 py-1.5 bg-brand-beige text-brand-gold rounded-full text-[10px] font-bold uppercase tracking-[0.2em]">
+          Disponível
         </div>
       </div>
 
-      <p className="text-gray-500 leading-relaxed mb-10 text-lg">
-        {product.description || 'Nenhuma descrição disponível para este produto premium.'}
+      <p className="text-brand-green/60 leading-relaxed mb-12 text-base font-medium">
+        {product.description || 'Uma seleção exclusiva de excelência e performance para profissionais que exigem o melhor em cada detalhe.'}
       </p>
 
       {/* Quantity & Add to Cart */}
-      <div className="flex flex-col sm:flex-row gap-4 mb-12">
-        <div className="flex items-center border border-gray-200 rounded-2xl h-16 px-4 bg-gray-50/50">
+      <div className="flex flex-col sm:flex-row gap-6 mb-16">
+        <div className="flex items-center border border-brand-beige rounded-full h-16 px-6 bg-white/50 backdrop-blur-sm">
           <button 
             onClick={() => setQuantity(Math.max(1, quantity - 1))}
-            className="w-10 h-10 flex items-center justify-center text-gray-400 hover:text-emerald-900 transition-colors"
+            className="w-10 h-10 flex items-center justify-center text-brand-green/30 hover:text-brand-gold transition-colors"
           >
             <Minus className="w-4 h-4" />
           </button>
-          <span className="w-12 text-center font-bold text-lg text-gray-900">{quantity}</span>
+          <span className="w-12 text-center font-bold text-lg text-brand-green">{quantity}</span>
           <button 
             onClick={() => setQuantity(quantity + 1)}
-            className="w-10 h-10 flex items-center justify-center text-gray-400 hover:text-emerald-900 transition-colors"
+            className="w-10 h-10 flex items-center justify-center text-brand-green/30 hover:text-brand-gold transition-colors"
           >
             <Plus className="w-4 h-4" />
           </button>
@@ -60,42 +71,44 @@ export function ProductInfo({ product }: ProductInfoProps) {
         <button
           onClick={handleAddToCart}
           className={cn(
-            "flex-1 h-16 rounded-2xl font-bold flex items-center justify-center gap-3 transition-all transform active:scale-95 shadow-xl shadow-emerald-900/10",
-            isAdded ? "bg-emerald-600 text-white" : "bg-emerald-900 text-white hover:bg-emerald-800"
+            "flex-1 h-16 rounded-full font-bold text-xs tracking-[0.2em] flex items-center justify-center gap-3 transition-all transform active:scale-95 shadow-2xl uppercase",
+            isAdded 
+              ? "bg-brand-gold text-white shadow-brand-gold/20" 
+              : "bg-brand-green text-white hover:bg-brand-gold shadow-brand-green/20"
           )}
         >
           {isAdded ? (
             <>
-              <Check className="w-5 h-5" />
-              ADICIONADO!
+              <Check className="w-5 h-5 stroke-[2.5]" />
+              Colocado no Carrinho
             </>
           ) : (
             <>
-              <ShoppingBag className="w-5 h-5" />
-              ADICIONAR AO CARRINHO
+              <ShoppingBag className="w-5 h-5 stroke-[2.5]" />
+              Comprar Agora
             </>
           )}
         </button>
       </div>
 
       {/* Trust Elements */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-10 border-t border-gray-100">
-        <div className="flex items-center gap-4">
-          <div className="w-10 h-10 bg-emerald-50 rounded-full flex items-center justify-center shrink-0">
-            <Truck className="w-5 h-5 text-emerald-900" />
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 pt-12 border-t border-brand-beige">
+        <div className="flex items-start gap-5">
+          <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center shrink-0 shadow-sm border border-brand-beige">
+            <Truck className="w-6 h-6 text-brand-gold" />
           </div>
           <div>
-            <h4 className="text-sm font-bold text-gray-900">Envio Rápido</h4>
-            <p className="text-[11px] text-gray-400">Entrega em todo o Brasil</p>
+            <h4 className="text-xs font-bold text-brand-green uppercase tracking-widest mb-1">Envio Expresso</h4>
+            <p className="text-[11px] text-brand-green/40 font-medium leading-relaxed">Logística premium para todo o território nacional.</p>
           </div>
         </div>
-        <div className="flex items-center gap-4">
-          <div className="w-10 h-10 bg-emerald-50 rounded-full flex items-center justify-center shrink-0">
-            <ShieldCheck className="w-5 h-5 text-emerald-900" />
+        <div className="flex items-start gap-5">
+          <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center shrink-0 shadow-sm border border-brand-beige">
+            <ShieldCheck className="w-6 h-6 text-brand-gold" />
           </div>
           <div>
-            <h4 className="text-sm font-bold text-gray-900">Compra Segura</h4>
-            <p className="text-[11px] text-gray-400">Garantia total de qualidade</p>
+            <h4 className="text-xs font-bold text-brand-green uppercase tracking-widest mb-1">Qualidade Selada</h4>
+            <p className="text-[11px] text-brand-green/40 font-medium leading-relaxed">Garantia absoluta de autenticidade e excelência.</p>
           </div>
         </div>
       </div>

@@ -15,18 +15,18 @@ export default async function ProductPage({
     const product = await getProductById(params.id);
 
     return (
-      <div className="bg-white min-h-screen pt-24 pb-20">
-        <div className="container mx-auto px-4">
+      <div className="bg-brand-nude/20 min-h-screen pt-32 pb-32">
+        <div className="container mx-auto px-6">
           {/* Breadcrumbs */}
-          <div className="flex items-center gap-2 text-xs text-gray-400 uppercase tracking-widest mb-12">
-            <Link href="/" className="hover:text-emerald-900 transition-colors">Início</Link>
-            <ChevronRight className="w-3 h-3" />
-            <Link href="/produtos" className="hover:text-emerald-900 transition-colors">Produtos</Link>
-            <ChevronRight className="w-3 h-3" />
-            <span className="text-emerald-900 font-bold">{product.name}</span>
+          <div className="flex items-center gap-3 text-[10px] text-brand-green/40 uppercase tracking-[0.3em] font-bold mb-16">
+            <Link href="/" className="hover:text-brand-gold transition-colors">Início</Link>
+            <ChevronRight className="w-3 h-3 opacity-20" />
+            <Link href="/produtos" className="hover:text-brand-gold transition-colors">Produtos</Link>
+            <ChevronRight className="w-3 h-3 opacity-20" />
+            <span className="text-brand-green font-bold tracking-[0.4em]">{product.name}</span>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 lg:gap-32">
             <ProductGallery image={product.image_url} name={product.name} />
             <ProductInfo product={{
               ...product,
