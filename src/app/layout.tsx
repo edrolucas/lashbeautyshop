@@ -17,6 +17,32 @@ const playfair = Playfair_Display({
 export const metadata: Metadata = {
   title: "Lash Beauty Shop — Produtos Premium para Cílios e Sobrancelhas",
   description: "Beleza que transforma o olhar. Produtos premium para cílios e sobrancelhas. Sofisticação e qualidade em cada detalhe.",
+  icons: {
+    icon: "/logo-brand.png",
+    apple: "/logo-brand.png",
+  },
+  openGraph: {
+    title: "Lash Beauty Shop — Boutique Premium",
+    description: "Beleza que transforma o olhar. Sofisticação e qualidade em cada detalhe.",
+    url: "https://lashbeautyshop.vercel.app",
+    siteName: "Lash Beauty Shop",
+    images: [
+      {
+        url: "/logo-brand.png",
+        width: 1024,
+        height: 1024,
+        alt: "Lash Beauty Shop",
+      },
+    ],
+    locale: "pt_BR",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Lash Beauty Shop — Boutique Premium",
+    description: "Beleza que transforma o olhar. Sofisticação e qualidade em cada detalhe.",
+    images: ["/logo-brand.png"],
+  },
 };
 
 export default function RootLayout({
