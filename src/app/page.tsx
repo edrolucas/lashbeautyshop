@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { getFeaturedProducts, getCategories, getProducts } from '@/lib/db';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -12,9 +14,7 @@ export default async function Home() {
     getProducts(),
   ]);
 
-  const displayFeatured = featuredProducts.length > 0
-    ? featuredProducts
-    : allProducts.slice(0, 4);
+  const displayFeatured = featuredProducts;
 
   return (
     <div className="flex flex-col w-full bg-brand-nude selection:bg-brand-green selection:text-white">
@@ -217,8 +217,8 @@ export default async function Home() {
               <div className="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center mb-8 border border-white/10 group-hover:bg-brand-gold transition-all duration-500">
                 <Truck className="w-8 h-8 text-brand-gold group-hover:text-white" />
               </div>
-              <h4 className="text-xl font-serif font-bold mb-4">Entrega Expressa</h4>
-              <p className="text-brand-nude/60 leading-relaxed px-4">Receba seus produtos com rapidez e segurança em todo o Brasil.</p>
+              <h4 className="text-xl font-serif font-bold mb-4">Entrega via motoboy ou retirada no local</h4>
+              <p className="text-brand-nude/60 leading-relaxed px-4">Entrega com segurança em toda Paraíba</p>
             </div>
 
             <div className="flex flex-col items-center text-center group">
