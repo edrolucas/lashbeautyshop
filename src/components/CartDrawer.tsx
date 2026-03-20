@@ -42,7 +42,9 @@ export function CartDrawer() {
       // 3. Clear cart and redirect
       clearCart();
       setIsCartOpen(false);
-      window.open(`https://wa.me/5583993238255?text=${encodedMessage}`, '_blank');
+      
+      const whatsappUrl = `https://api.whatsapp.com/send?phone=5583993238255&text=${encodedMessage}`;
+      window.location.assign(whatsappUrl);
     } catch (error) {
       console.error(error);
       alert('Erro ao processar seu pedido. Por favor, tente novamente.');
